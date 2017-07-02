@@ -1,0 +1,103 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "58f2c1d5-4333-4d7c-83cb-bd3c74891388": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 150,
+                    "y": 80
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "2fd9fc9c-a863-4f60-9438-e3252b3f5fd9": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 190,
+                    "y": 180
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "0d5f550b-6979-492d-a51a-1d9f483b43dc": {
+                "source": {
+                    "id": "58f2c1d5-4333-4d7c-83cb-bd3c74891388"
+                },
+                "target": {
+                    "id": "2fd9fc9c-a863-4f60-9438-e3252b3f5fd9"
+                },
+                "z": 0
+            },
+            "1dd7ebd8-8815-4d45-b1d9-3645d0f5c250": {
+                "source": {
+                    "id": "2fd9fc9c-a863-4f60-9438-e3252b3f5fd9"
+                },
+                "target": {
+                    "id": "58f2c1d5-4333-4d7c-83cb-bd3c74891388"
+                },
+                "z": 1
+            }
+        }
+    },
+    "Resources": {
+        "web01": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-d7b9a2b1",
+                "InstanceType": "t2.micro",
+                "Tags": [
+                    {
+                        "Key": "Test",
+                        "Value": "Test"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "58f2c1d5-4333-4d7c-83cb-bd3c74891388"
+                }
+            }
+        },
+        "EC2V4VIXO": {
+            "Type": "AWS::EC2::Volume",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Fn::GetAtt": [
+                        "web01",
+                        "AvailabilityZone"
+                    ]
+                },
+                "Size": 20
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "2fd9fc9c-a863-4f60-9438-e3252b3f5fd9"
+                }
+            }
+        },
+        "EC2VA454TZ": {
+            "Type": "AWS::EC2::VolumeAttachment",
+            "Properties": {
+                "VolumeId": {
+                    "Ref": "EC2V4VIXO"
+                },
+                "InstanceId": {
+                    "Ref": "web01"
+                },
+                "Device": "/dev/xvdb"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "0d5f550b-6979-492d-a51a-1d9f483b43dc"
+                }
+            }
+        }
+    }
+}
